@@ -1,0 +1,237 @@
+openapi: 3.0.0
+info:
+  title: Items API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://itemsapi-pujf.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: Dikshyanta
+                  email: dikshyantauprety@outlook.com
+                  password: secret123
+            example:
+              name: Dikshyanta
+              email: dikshyantauprety@outlook.com
+              password: secret123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: dikshyantauprety@outlook.com
+                  password: secret123
+            example:
+              email: dikshyantauprety@outlook.com
+              password: secret123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /items:
+    get:
+      tags:
+      - Items
+      summary: get all items
+      operationId: getallitems
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Items
+      summary: create item
+      operationId: createitem
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /items/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The item ID
+    patch:
+      tags:
+      - Items
+      summary: update item
+      operationId: updateitem
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updateitemrequest'
+              - example:
+                  company: gibson
+                  name: electric guitar
+                  price: 20
+            example:
+              company: gibson
+              name: electric guitar
+              price: 20
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Items
+      summary: get single item
+      operationId: getsingleitem
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Items
+      summary: delete item
+      operationId: deleteitem
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Dikshyanta
+        email: dikshyantauprety@outlook.com
+        password: secret123
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: dikshyantauprety@outlook.com
+        password: secret123
+    createitemrequest:
+      title: createitemrequest
+      required:
+      - name
+      - price
+      - company
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        company:
+          type: string
+      example:
+        name: acoustic guitar
+        price: 39
+        company: Ibanez
+    updateitemrequest:
+      title: updateitemrequest
+      required:
+      - company
+      - name
+      - price
+      type: object
+      properties:
+        company:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+      example:
+        company: gibson
+        name: electric guitar
+        price: 20
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Items
+  description: ''
